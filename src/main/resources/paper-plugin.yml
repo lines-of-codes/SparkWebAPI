@@ -1,7 +1,7 @@
 name: spark-web-api
 version: '${version}'
-main: com.trashbingames.sparkwebapi.SparkWebAPI
-api-version: '1.20'
+main: xyz.dailitation.linesofcodes.sparkwebapi.SparkWebAPI
+api-version: '1.21.11'
 dependencies:
   server:
     spark:

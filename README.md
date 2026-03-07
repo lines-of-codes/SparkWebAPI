@@ -15,14 +15,14 @@ required for this plugin.
 
 Then, Install Spark Web API.
 There are two files you could download, which are:
-- spark-web-api-1.0.1.jar
-- spark-web-api-1.0.1-all.jar
+- spark-web-api-1.0.2.jar
+- spark-web-api-1.0.2-all.jar
 
-The `spark-web-api-1.0.1-SNAPSHOT.jar` is a JAR file without 
+The `spark-web-api-1.0.2-SNAPSHOT.jar` is a JAR file without 
 Javalin. You'll have to somehow add Javalin to classpath at 
 runtime.
 
-The `spark-web-api-1.0-SNAPSHOT-all.jar` is a JAR file with 
+The `spark-web-api-1.0.2-SNAPSHOT-all.jar` is a JAR file with 
 Javalin built-in. It is recommended that you download this 
 file as it is easier to set up.
 
@@ -59,6 +59,14 @@ routes:
   gc: false
 headers:
   enabled: false
+```
+
+An example of adding additional headers:
+
+```yaml
+headers:
+  enabled: true
+  Access-Control-Allow-Origin: "*"
 ```
 
 ## API paths

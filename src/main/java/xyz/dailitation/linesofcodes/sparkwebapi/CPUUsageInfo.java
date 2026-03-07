@@ -1,4 +1,4 @@
-package com.trashbingames.sparkwebapi;
+package xyz.dailitation.linesofcodes.sparkwebapi;
 
 import me.lucko.spark.api.statistic.StatisticWindow;
 import me.lucko.spark.api.statistic.types.DoubleStatistic;

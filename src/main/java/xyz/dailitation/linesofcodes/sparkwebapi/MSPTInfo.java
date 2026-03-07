@@ -1,4 +1,4 @@
-package com.trashbingames.sparkwebapi;
+package xyz.dailitation.linesofcodes.sparkwebapi;
 
 import me.lucko.spark.api.statistic.misc.DoubleAverageInfo;
 

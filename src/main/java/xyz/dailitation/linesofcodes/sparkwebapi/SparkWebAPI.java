@@ -1,4 +1,4 @@
-package com.trashbingames.sparkwebapi;
+package xyz.dailitation.linesofcodes.sparkwebapi;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import io.javalin.Javalin;
@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
+
+import static io.javalin.apibuilder.ApiBuilder.get;
 
 public final class SparkWebAPI extends JavaPlugin {
     public Logger logger = getLogger();
@@ -43,38 +45,42 @@ public final class SparkWebAPI extends JavaPlugin {
 
         spark = SparkProvider.get();
 
-        app = Javalin.create(config -> config.jsonMapper(
-            new JavalinJackson().updateMapper(mapper -> {
-                SimpleModule module = new SimpleModule("Serializers");
-                module.addSerializer(MSPTInfo.class, new MSPTInfoSerializer());
-                module.addSerializer(GarbageCollector.class, new GCSerializer());
-                mapper.registerModule(module);
-            })
-        ));
-
-        if ((boolean)routes.get("tps")) {
-            app.get("/api/tps", this::getTps);
-        }
-        if ((boolean)routes.get("mspt")) {
-            app.get("/api/mspt", this::getMspt);
-        }
-        if ((boolean)routes.get("sys_cpu")) {
-            app.get("/api/cpu/sys", this::getSysCpuUsage);
-        }
-        if ((boolean)routes.get("proc_cpu")) {
-            app.get("/api/cpu/proc", this::getProcCpuUsage);
-        }
-        if ((boolean)routes.get("gc")) {
-            app.get("/api/gc", this::getGCData);
-        }
-        app.start(pluginConfig.getInt("port"));
+        app = Javalin.create(config -> {
+            config.jsonMapper(
+                new JavalinJackson().updateMapper(mapper -> {
+                    SimpleModule module = new SimpleModule("Serializers");
+                    module.addSerializer(MSPTInfo.class, new MSPTInfoSerializer());
+                    module.addSerializer(GarbageCollector.class, new GCSerializer());
+                    mapper.registerModule(module);
+                })
+            );
+            config.routes.apiBuilder(() -> {
+                if ((boolean)routes.get("tps")) {
+                    get("/api/tps", this::getTps);
+                }
+                if ((boolean)routes.get("mspt")) {
+                    get("/api/mspt", this::getMspt);
+                }
+                if ((boolean)routes.get("sys_cpu")) {
+                    get("/api/cpu/sys", this::getSysCpuUsage);
+                }
+                if ((boolean)routes.get("proc_cpu")) {
+                    get("/api/cpu/proc", this::getProcCpuUsage);
+                }
+                if ((boolean)routes.get("gc")) {
+                    get("/api/gc", this::getGCData);
+                }
+            });
+        }).start(pluginConfig.getInt("port"));
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
         logger.info("Shutting down Spark Web API...");
-        app.stop();
+        if (app != null) {
+            app.stop();
+        }
     }
 
     void addHeaders(Context ctx) {

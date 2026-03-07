@@ -1,4 +1,4 @@
-package com.trashbingames.sparkwebapi;
+package xyz.dailitation.linesofcodes.sparkwebapi;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;

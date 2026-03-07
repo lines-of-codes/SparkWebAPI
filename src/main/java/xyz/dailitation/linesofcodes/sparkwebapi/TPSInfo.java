@@ -1,4 +1,4 @@
-package com.trashbingames.sparkwebapi;
+package xyz.dailitation.linesofcodes.sparkwebapi;
 
 public class TPSInfo {
     public double tenSeconds;
